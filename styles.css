@@ -1,0 +1,25 @@
+/* All styles are inert unless the extension has explicitly enabled privacy. */
+html[data-wpb-pending="true"] body { visibility: hidden !important; }
+html[data-wpb-enabled="true"] [data-wpb-target] {
+  transition: filter 150ms ease;
+  will-change: filter;
+}
+html[data-wpb-enabled="true"][data-wpb-chat-list="true"] [data-wpb-target="chat"],
+html[data-wpb-enabled="true"][data-wpb-messages="true"] [data-wpb-target="message"],
+html[data-wpb-enabled="true"][data-wpb-profile-photos="true"] [data-wpb-target="avatar"],
+html[data-wpb-enabled="true"][data-wpb-media="true"] [data-wpb-target="media"] {
+  filter: blur(7px) !important;
+}
+/* A row/bubble only clears under its own pointer; siblings stay protected. */
+@media (hover: hover) {
+  html[data-wpb-enabled="true"][data-wpb-hover="true"] [data-wpb-target]:hover {
+    filter: blur(0) !important;
+  }
+  html[data-wpb-enabled="true"][data-wpb-hover="true"] [data-wpb-target="chat"]:hover [data-wpb-target],
+  html[data-wpb-enabled="true"][data-wpb-hover="true"] [data-wpb-target="message"]:hover [data-wpb-target] {
+    filter: blur(0) !important;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  html[data-wpb-enabled="true"] [data-wpb-target] { transition: none; }
+}
